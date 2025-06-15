@@ -11,15 +11,10 @@ contract Tokem {
     uint256 public _totalSupply = 21000000 * (10 ** uint256(_decimals));
 
     mapping(address account => uint256) private balances;
-    mapping(address account => mapping(address spender => uint256))
-        private allowances;
+    mapping(address account => mapping(address spender => uint256)) private allowances;
 
     event Transfer(address indexed from, address indexed to, uint256 amount);
-    event Approval(
-        address indexed _owner,
-        address indexed _spender,
-        uint256 _value
-    );
+    event Approval(address indexed _owner, address indexed _spender, uint256 _value);
 
     constructor() {
         balances[msg.sender] = _totalSupply;
@@ -45,10 +40,7 @@ contract Tokem {
         return balances[_account];
     }
 
-    function transfer(
-        address _to,
-        uint256 _value
-    ) public virtual returns (bool success) {
+    function transfer(address _to, uint256 _value) public virtual returns (bool success) {
         address from = msg.sender;
         if (balanceOf(from) < _value) {
             revert Tokem__InsufficientBalance();
@@ -84,11 +76,7 @@ contract Tokem {
         emit Transfer(_from, _to, _value);
     }
 
-    function transferFrom(
-        address _from,
-        address _to,
-        uint256 _value
-    ) public virtual returns (bool) {
+    function transferFrom(address _from, address _to, uint256 _value) public virtual returns (bool) {
         if (balances[_from] < _value) {
             revert Tokem__InsufficientBalance();
         }
@@ -104,10 +92,7 @@ contract Tokem {
         return true;
     }
 
-    function allowance(
-        address _owner,
-        address _spender
-    ) public view returns (uint256) {
+    function allowance(address _owner, address _spender) public view returns (uint256) {
         return allowances[_owner][_spender];
     }
 
@@ -116,11 +101,7 @@ contract Tokem {
         return true;
     }
 
-    function _approve(
-        address _owner,
-        address _spender,
-        uint256 _value
-    ) internal {
+    function _approve(address _owner, address _spender, uint256 _value) internal {
         if (_owner == address(0)) {
             revert Tokem__ZeroAddress();
         }

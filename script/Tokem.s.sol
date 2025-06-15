@@ -3,10 +3,11 @@ pragma solidity ^0.8.13;
 
 import {Script, console} from "forge-std/Script.sol";
 import {Tokem} from "../src/Tokem.sol";
+import {TokemLaunch} from "../src/TokemLaunch.sol";
 
 contract TokemScript is Script {
-    // Counter public counter;
     Tokem public tokem;
+    TokemLaunch public tokemLaunch;
 
     function setUp() public {}
 
@@ -14,6 +15,7 @@ contract TokemScript is Script {
         vm.startBroadcast();
 
         tokem = new Tokem();
+        tokemLaunch = new TokemLaunch(address(tokem));
 
         vm.stopBroadcast();
     }
